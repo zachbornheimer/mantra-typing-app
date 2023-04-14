@@ -1,6 +1,6 @@
 /**
  * @file Mantra typing app
- * @author Zachary Bornheimer (with Chat GPT)
+ * @author Zachary Bornheimer (with ChatGPT)
  * @license MIT
  */
 
@@ -16,13 +16,13 @@ let mantras = [
 ];
 
 
-let speed = 10;
-let display = 350;
-
-
-// Get the mantra from the query parameter
+// Get the query parameters
 const queryParams = new URLSearchParams(window.location.search);
 const mantra = queryParams.get('mantra');
+
+// set constants
+const pushSpeed = 10;
+const displayOffset = 350;
 
 // Add the mantra to the list
 if (mantra) {
@@ -68,7 +68,7 @@ const getNextMantra = () => {
         const currentMantra = mantras[currentMantraIndex];
         const words = currentMantra.split(" ");
         const text = words.map((word, index) => {
-            const color = index < currentWordIndex ? "#999" : "#888";
+            const color = index < currentWordIndex ? "#999" : "#000";
             return `<span style="color:${color}">${word} </span>`;
         }).join("");
         mantraText.innerHTML = text;
@@ -94,7 +94,10 @@ const getNextMantra = () => {
 const handleInput = () => {
     const typedWords = mantraInput.value.trim().toLowerCase().split(/\s+/);
     const currentWord = getNextWord().toLowerCase();
-    const typedWord = typedWords[currentWordIndex].trim();
+    let typedWord = typedWords[currentWordIndex];
+    try {
+        typedWord = typedWord.trim();
+    } catch(e) {}
 
     if (typedWord === "" || currentWord.startsWith(typedWord)) {
         const textWords = mantras[currentMantraIndex].split(/\s+/);
@@ -134,12 +137,12 @@ const handleInput = () => {
                 let interval = setInterval(() => {
                     let completedMantraDiv = document.getElementById(`completedMantra${currentMantraIndex}`);
                     let top = parseInt(completedMantraDiv.style.top.replace(/\D/, ''));
-                    completedMantraDiv.style.top = `${top + speed}px`;
+                    completedMantraDiv.style.top = `${top + pushSpeed}px`;
                     if (top == document.getElementById("mantra-input").offsetTop) {
                         document.getElementById("mantra-input").value = '';
                         document.getElementById("mantra-input").disabled = true;
                     }
-                    if (top + speed >= display + document.getElementById("mantra-text").offsetTop) {
+                    if (top + pushSpeed >= displayOffset + document.getElementById("mantra-text").offsetTop) {
                         document.getElementById("mantra-input").disabled = false;
 
                         clearInterval(interval);
@@ -147,7 +150,7 @@ const handleInput = () => {
                         completedMantraDiv.style.fontSize = '5vw';
                         completedMantraDiv.style.opacity = '0.08';
                     }
-                }, speed);
+                }, pushSpeed);
             }
         }
     } else if (typedWord === " ") {
