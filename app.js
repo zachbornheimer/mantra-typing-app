@@ -6,9 +6,13 @@
 
 // Define the list of mantras
 const mantras = [
-  "Your first mantra goes here",
-  "Your second mantra goes here",
-  "Your third mantra goes here"
+  "I am worthy of my own time.",
+  "Every day and in every way, I'm getting better and better, stronger and stronger, more prosperous, wise, and loving",
+    "I am a success story.",
+  "This day is a glorious day that I will live absolutely fully, radiating positivity, maximizing my productivity, and savoring life's beauty.",
+    "I love myself.",
+  "I am living this blessing of a day with a fully focused mind, a wide-opened heart, and increasingly fit body and noble spirit: making magic, materializing my dreams, and making the world a brighter place",
+    "I am worthy of my own time.",
 ];
 
 
@@ -106,10 +110,6 @@ const handleInput = () => {
           completedMantra.setAttribute('id', `completedMantra${currentMantraIndex}`);
         completedMantra.textContent = mantras[currentMantraIndex];
 
-
-
-
-
         document.getElementById('completed-mantras').appendChild(completedMantra);
         const inputRect = mantraInput.getBoundingClientRect();
         const textRect = mantraText.getBoundingClientRect();
@@ -130,10 +130,13 @@ const handleInput = () => {
                 document.getElementById("mantra-input").value = '';
                   document.getElementById("mantra-input").disabled = true;
               }
-              if (top + speed >= 350 + document.getElementById("mantra-text").offsetTop) {
+              if (top + speed >= display + document.getElementById("mantra-text").offsetTop) {
                   document.getElementById("mantra-input").disabled = false;
+
                   clearInterval(interval);
                   getNextMantra();
+completedMantraDiv.style.fontSize = '5vw';
+completedMantraDiv.style.opacity = '0.08';
               }
           }, speed);
       }
@@ -161,7 +164,7 @@ const handleInput = () => {
     handleInput();
   } else if (typedWord !== "") {
     // Reset the input value to the last valid word
-    mantraInput.value = typedWords.slice(0, currentWordIndex).join(" ");
+    //mantraInput.value = typedWords.slice(0, currentWordIndex).join(" ");
   }
 };
 
