@@ -68,7 +68,7 @@ const getNextMantra = () => {
         const currentMantra = mantras[currentMantraIndex];
         const words = currentMantra.split(" ");
         const text = words.map((word, index) => {
-            const color = index < currentWordIndex ? "#999" : "#000";
+            const color = index < currentWordIndex ? "var(--mantra-typed)" : "var(--mantra)";
             return `<span style="color:${color}">${word} </span>`;
         }).join("");
         mantraText.innerHTML = text;
@@ -104,11 +104,11 @@ const handleInput = () => {
         let html = "";
         for (let i = 0; i < textWords.length; i++) {
             const word = textWords[i];
-            let color = "#888";
+            let color = "var(--mantra-untyped)";
             if (i === currentWordIndex) {
-                color = "#000";
+                color = "var(--mantra)";
             } else if (i < currentWordIndex) {
-                color = "#999";
+                color = "var(--mantra-typed)";
             }
             html += `<span class="${color}" style="color: ${color};">${word}</span> `;
         }
